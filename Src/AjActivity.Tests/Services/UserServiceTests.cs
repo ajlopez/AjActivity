@@ -34,7 +34,7 @@ namespace AjActivity.Tests.Services
         {
             ulong id = this.service.NewUser("foo");
 
-            User user = this.repository.Users.Where(u => u.Id == id).SingleOrDefault();
+            User user = this.repository.GetUserById(id);
 
             Assert.IsNotNull(user);
             Assert.AreEqual(id, user.Id);
@@ -49,7 +49,7 @@ namespace AjActivity.Tests.Services
 
             Assert.AreEqual(101u, id);
 
-            User user = this.repository.Users.Where(u => u.Id == id).SingleOrDefault();
+            User user = this.repository.GetUserById(id);
 
             Assert.IsNotNull(user);
             Assert.AreEqual(id, user.Id);
@@ -64,8 +64,8 @@ namespace AjActivity.Tests.Services
 
             this.service.AddFollower(userid, followerid);
 
-            User user = this.repository.Users.Where(u => u.Id == userid).SingleOrDefault();
-            User follower = this.repository.Users.Where(u => u.Id == followerid).SingleOrDefault();
+            User user = this.repository.GetUserById(userid);
+            User follower = this.repository.GetUserById(followerid);
 
             Assert.IsNotNull(user);
             Assert.IsNotNull(follower);

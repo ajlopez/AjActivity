@@ -30,5 +30,10 @@
         {
             this.users.Add(user);
         }
+
+        public User GetUserById(ulong id)
+        {
+            return this.users.Where(u => u.Id == id).SingleOrDefault();
+        }
     }
 }

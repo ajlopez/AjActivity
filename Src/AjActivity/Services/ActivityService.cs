@@ -20,7 +20,13 @@
         {
             DateTime datetime = DateTime.UtcNow;
             ulong id = this.NextId();
-            this.repository.AddMessage(new Message(id, userid, datetime, content));
+            Message message = new Message(id, userid, datetime, content);
+            this.repository.AddMessage(message);
+
+            User user = this.repository.GetUserById(userid);
+
+            user.AddMessage(message);
+
             return id;
         }
 
