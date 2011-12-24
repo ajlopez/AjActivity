@@ -41,5 +41,21 @@ namespace AjActivity.Tests.Services
             Assert.AreEqual("foo", message.Content);
             Assert.AreEqual(1u, message.UserId);
         }
+
+        [TestMethod]
+        public void NewMessageWithExistingMessages()
+        {
+            this.repository.AddMessage(new Message(100, 1, DateTime.UtcNow, "bar"));
+            ulong id = this.service.NewMessage(1, "foo");
+
+            Assert.AreEqual(101u, id);
+
+            Message message = this.repository.Messages.Where(m => m.Id == id).SingleOrDefault();
+
+            Assert.IsNotNull(message);
+            Assert.AreEqual(id, message.Id);
+            Assert.AreEqual("foo", message.Content);
+            Assert.AreEqual(1u, message.UserId);
+        }
     }
 }

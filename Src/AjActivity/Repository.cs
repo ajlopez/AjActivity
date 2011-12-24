@@ -25,5 +25,10 @@
         {
             this.messages.Add(message);
         }
+
+        public void AddUser(User user)
+        {
+            this.users.Add(user);
+        }
     }
 }
