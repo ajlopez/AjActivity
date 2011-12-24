@@ -14,6 +14,7 @@ namespace AjActivity.Tests.Services
         private Repository repository;
         private ActivityService service;
         private User user;
+        private IList<User> followers = new List<User>();
 
         [TestInitialize]
         public void Setup()
@@ -24,6 +25,14 @@ namespace AjActivity.Tests.Services
             UserService uservice = new UserService(this.repository);
             ulong id = uservice.NewUser("user");
             this.user = this.repository.GetUserById(id);
+
+            for (int k = 1; k <= 100; k++)
+            {
+                ulong followerid = uservice.NewUser("follower" + k);
+                User follower = this.repository.GetUserById(followerid);
+                uservice.AddFollower(id, followerid);
+                this.followers.Add(follower);
+            }
         }
 
         [TestMethod]
@@ -44,6 +53,21 @@ namespace AjActivity.Tests.Services
             Assert.IsNotNull(message);
             Assert.AreEqual(1u, message.UserId);
             Assert.AreEqual("foo", message.Content);
+        }
+
+        [TestMethod]
+        public void NewMessageInFollowersTimeline()
+        {
+            ulong id = this.service.NewMessage(1, "foo");
+
+            foreach (User follower in this.followers)
+            {
+                Message message = follower.Messages.Where(m => m.Id == id).SingleOrDefault();
+
+                Assert.IsNotNull(message);
+                Assert.AreEqual(1u, message.UserId);
+                Assert.AreEqual("foo", message.Content);
+            }
         }
 
         [TestMethod]

@@ -27,6 +27,12 @@
 
             user.AddMessage(message);
 
+            foreach (ulong followerid in user.FollowerIds)
+            {
+                User follower = this.repository.GetUserById(followerid);
+                follower.AddMessage(message);
+            }
+
             return id;
         }
 
