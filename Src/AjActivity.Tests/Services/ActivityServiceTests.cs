@@ -24,12 +24,12 @@ namespace AjActivity.Tests.Services
 
             UserService uservice = new UserService(this.repository);
             ulong id = uservice.NewUser("user");
-            this.user = this.repository.GetUserById(id);
+            this.user = this.repository.LastUser();
 
             for (int k = 1; k <= 100; k++)
             {
                 ulong followerid = uservice.NewUser("follower" + k);
-                User follower = this.repository.GetUserById(followerid);
+                User follower = this.repository.LastUser();
                 uservice.AddFollower(id, followerid);
                 this.followers.Add(follower);
             }
@@ -75,7 +75,7 @@ namespace AjActivity.Tests.Services
         {
             ulong id = this.service.NewMessage(1, "foo");
 
-            Message message = this.repository.Messages.Where(m => m.Id == id).SingleOrDefault();
+            Message message = this.repository.LastMessage();
 
             Assert.IsNotNull(message);
             Assert.AreEqual(id, message.Id);
@@ -86,12 +86,14 @@ namespace AjActivity.Tests.Services
         [TestMethod]
         public void NewMessageWithExistingMessages()
         {
-            this.repository.AddMessage(new Message(100, 1, DateTime.UtcNow, "bar"));
+            for (int k = 1; k <= 100; k++)
+                this.service.NewMessage(1, "bar" + k);
+
             ulong id = this.service.NewMessage(1, "foo");
 
             Assert.AreEqual(101u, id);
 
-            Message message = this.repository.Messages.Where(m => m.Id == id).SingleOrDefault();
+            Message message = this.repository.LastMessage();
 
             Assert.IsNotNull(message);
             Assert.AreEqual(id, message.Id);

@@ -34,22 +34,7 @@ namespace AjActivity.Tests.Services
         {
             ulong id = this.service.NewUser("foo");
 
-            User user = this.repository.GetUserById(id);
-
-            Assert.IsNotNull(user);
-            Assert.AreEqual(id, user.Id);
-            Assert.AreEqual("foo", user.Name);
-        }
-
-        [TestMethod]
-        public void NewMessageWithExistingMessages()
-        {
-            this.repository.AddUser(new User(100, "bar"));
-            ulong id = this.service.NewUser("foo");
-
-            Assert.AreEqual(101u, id);
-
-            User user = this.repository.GetUserById(id);
+            User user = this.repository.LastUser();
 
             Assert.IsNotNull(user);
             Assert.AreEqual(id, user.Id);
@@ -60,12 +45,11 @@ namespace AjActivity.Tests.Services
         public void AddFollower()
         {
             ulong userid = this.service.NewUser("foo");
+            User user = this.repository.LastUser();
             ulong followerid = this.service.NewUser("bar");
+            User follower = this.repository.LastUser();
 
             this.service.AddFollower(userid, followerid);
-
-            User user = this.repository.GetUserById(userid);
-            User follower = this.repository.GetUserById(followerid);
 
             Assert.IsNotNull(user);
             Assert.IsNotNull(follower);

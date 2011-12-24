@@ -38,10 +38,6 @@
 
         private ulong NextId()
         {
-            if (counter == 0)
-                if (this.repository.Messages.Count() > 0)
-                    counter = this.repository.Messages.Select(m => m.Id).Max();
-
             return ++counter;
         }
     }

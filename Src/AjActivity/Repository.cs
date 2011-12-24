@@ -10,6 +10,8 @@
     {
         private IList<Message> messages;
         private IList<User> users;
+        private User lastuser;
+        private Message lastmessage;
 
         public Repository()
         {
@@ -17,23 +19,31 @@
             this.users = new List<User>();
         }
 
-        public IEnumerable<Message> Messages { get { return this.messages; } }
-
-        public IEnumerable<User> Users { get { return this.users; } }
-
-        public void AddMessage(Message message)
+        internal void AddMessage(Message message)
         {
             this.messages.Add(message);
+            this.lastmessage = message;
         }
 
-        public void AddUser(User user)
+        internal void AddUser(User user)
         {
             this.users.Add(user);
+            this.lastuser = user;
         }
 
-        public User GetUserById(ulong id)
+        internal User GetUserById(ulong id)
         {
             return this.users.Where(u => u.Id == id).SingleOrDefault();
+        }
+
+        public User LastUser()
+        {
+            return this.lastuser;
+        }
+
+        public Message LastMessage()
+        {
+            return this.lastmessage;
         }
     }
 }

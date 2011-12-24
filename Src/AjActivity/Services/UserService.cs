@@ -25,17 +25,13 @@
 
         private ulong NextId()
         {
-            if (counter == 0)
-                if (this.repository.Users.Count() > 0)
-                    counter = this.repository.Users.Select(u => u.Id).Max();
-
             return ++counter;
         }
 
         public void AddFollower(ulong userid, ulong followerid)
         {
-            User user = this.repository.Users.Where(u => u.Id == userid).Single();
-            User follower = this.repository.Users.Where(u => u.Id == followerid).Single();
+            User user = this.repository.GetUserById(userid);
+            User follower = this.repository.GetUserById(followerid);
 
             user.AddFollower(followerid);
             follower.Following(userid);
