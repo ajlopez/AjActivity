@@ -10,12 +10,18 @@ namespace AjActivity.Tests.Services
     [TestClass]
     public class ActivityServiceTests
     {
+        private ActivityService service;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            this.service = new ActivityService();
+        }
+
         [TestMethod]
         public void NewMessage()
         {
-            ActivityService service = new ActivityService();
-
-            ulong id = service.NewMessage(1, "foo");
+            ulong id = this.service.NewMessage(1, "foo");
 
             Assert.IsTrue(id > 0);
         }
