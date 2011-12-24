@@ -16,7 +16,7 @@
             this.repository = repository;
         }
 
-        public ulong NewMessage(ulong userid, string content)
+        public Message NewMessage(ulong userid, string content)
         {
             DateTime datetime = DateTime.UtcNow;
             ulong id = this.NextId();
@@ -33,7 +33,7 @@
                 follower.AddMessage(message);
             }
 
-            return id;
+            return message;
         }
 
         private ulong NextId()

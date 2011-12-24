@@ -36,49 +36,30 @@ namespace AjActivity.Tests.Services
         [TestMethod]
         public void NewMessage()
         {
-            ulong id = this.service.NewMessage(1, "foo");
+            Message message = this.service.NewMessage(1, "foo");
 
-            Assert.IsTrue(id > 0);
+            Assert.IsNotNull(message);
+            Assert.IsTrue(message.Id > 0);
+            Assert.AreEqual("foo", message.Content);
         }
 
         [TestMethod]
         public void NewMessageInUserTimeline()
         {
-            ulong id = this.service.NewMessage(1, "foo");
+            Message message = this.service.NewMessage(1, "foo");
 
-            Message message = this.user.Messages.Where(m => m.Id == id).SingleOrDefault();
-
-            Assert.IsNotNull(message);
-            Assert.AreEqual(1u, message.UserId);
-            Assert.AreEqual("foo", message.Content);
+            Assert.IsTrue(this.user.Messages.Contains(message));
         }
 
         [TestMethod]
         public void NewMessageInFollowersTimeline()
         {
-            ulong id = this.service.NewMessage(1, "foo");
+            Message message = this.service.NewMessage(1, "foo");
 
             foreach (User follower in this.followers)
             {
-                Message message = follower.Messages.Where(m => m.Id == id).SingleOrDefault();
-
-                Assert.IsNotNull(message);
-                Assert.AreEqual(1u, message.UserId);
-                Assert.AreEqual("foo", message.Content);
+                Assert.IsTrue(follower.Messages.Contains(message));
             }
-        }
-
-        [TestMethod]
-        public void NewMessageAndGetMessage()
-        {
-            ulong id = this.service.NewMessage(1, "foo");
-
-            Message message = this.repository.LastMessage();
-
-            Assert.IsNotNull(message);
-            Assert.AreEqual(id, message.Id);
-            Assert.AreEqual("foo", message.Content);
-            Assert.AreEqual(1u, message.UserId);
         }
 
         [TestMethod]
@@ -87,14 +68,10 @@ namespace AjActivity.Tests.Services
             for (int k = 1; k <= 100; k++)
                 this.service.NewMessage(1, "bar" + k);
 
-            ulong id = this.service.NewMessage(1, "foo");
+            Message message = this.service.NewMessage(1, "foo");
 
-            Assert.AreEqual(101u, id);
-
-            Message message = this.repository.LastMessage();
-
+            Assert.AreEqual(101u, message.Id);
             Assert.IsNotNull(message);
-            Assert.AreEqual(id, message.Id);
             Assert.AreEqual("foo", message.Content);
             Assert.AreEqual(1u, message.UserId);
         }
