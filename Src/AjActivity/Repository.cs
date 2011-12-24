@@ -10,8 +10,6 @@
     {
         private IList<Message> messages;
         private IList<User> users;
-        private User lastuser;
-        private Message lastmessage;
 
         public Repository()
         {
@@ -22,13 +20,11 @@
         internal void AddMessage(Message message)
         {
             this.messages.Add(message);
-            this.lastmessage = message;
         }
 
         internal void AddUser(User user)
         {
             this.users.Add(user);
-            this.lastuser = user;
         }
 
         internal User GetUserById(ulong id)
