@@ -23,14 +23,12 @@ namespace AjActivity.Tests.Services
             this.service = new ActivityService(this.repository);
 
             UserService uservice = new UserService(this.repository);
-            ulong id = uservice.NewUser("user");
-            this.user = this.repository.LastUser();
+            this.user = uservice.NewUser("user");
 
             for (int k = 1; k <= 100; k++)
             {
-                ulong followerid = uservice.NewUser("follower" + k);
-                User follower = this.repository.LastUser();
-                uservice.AddFollower(id, followerid);
+                User follower = uservice.NewUser("follower" + k);
+                uservice.AddFollower(this.user.Id, follower.Id);
                 this.followers.Add(follower);
             }
         }

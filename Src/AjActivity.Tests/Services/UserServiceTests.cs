@@ -24,38 +24,26 @@ namespace AjActivity.Tests.Services
         [TestMethod]
         public void NewUser()
         {
-            ulong id = this.service.NewUser("foo");
-
-            Assert.IsTrue(id > 0);
-        }
-
-        [TestMethod]
-        public void NewUserAndGetUser()
-        {
-            ulong id = this.service.NewUser("foo");
-
-            User user = this.repository.LastUser();
+            User user = this.service.NewUser("foo");
 
             Assert.IsNotNull(user);
-            Assert.AreEqual(id, user.Id);
+            Assert.IsTrue(user.Id > 0);
             Assert.AreEqual("foo", user.Name);
         }
 
         [TestMethod]
         public void AddFollower()
         {
-            ulong userid = this.service.NewUser("foo");
-            User user = this.repository.LastUser();
-            ulong followerid = this.service.NewUser("bar");
-            User follower = this.repository.LastUser();
+            User user = this.service.NewUser("foo");
+            User follower = this.service.NewUser("bar");
 
-            this.service.AddFollower(userid, followerid);
+            this.service.AddFollower(user.Id, follower.Id);
 
             Assert.IsNotNull(user);
             Assert.IsNotNull(follower);
 
-            Assert.IsTrue(user.FollowerIds.Contains(followerid));
-            Assert.IsTrue(follower.FollowingIds.Contains(userid));
+            Assert.IsTrue(user.FollowerIds.Contains(follower.Id));
+            Assert.IsTrue(follower.FollowingIds.Contains(user.Id));
         }
     }
 }

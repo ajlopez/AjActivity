@@ -16,11 +16,12 @@
             this.repository = repository;
         }
 
-        public ulong NewUser(string name)
+        public User NewUser(string name)
         {
             ulong id = this.NextId();
-            this.repository.AddUser(new User(id, name));
-            return id;
+            User user = new User(id, name);
+            this.repository.AddUser(user);
+            return user;
         }
 
         private ulong NextId()

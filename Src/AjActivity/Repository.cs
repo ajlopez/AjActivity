@@ -36,11 +36,6 @@
             return this.users.Where(u => u.Id == id).SingleOrDefault();
         }
 
-        public User LastUser()
-        {
-            return this.lastuser;
-        }
-
         public Message LastMessage()
         {
             return this.lastmessage;
