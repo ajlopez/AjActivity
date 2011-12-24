@@ -9,6 +9,8 @@
     {
         private ulong id;
         private string name;
+        private IList<ulong> followerids = new List<ulong>();
+        private IList<ulong> followingids = new List<ulong>();
 
         public User(ulong id, string name)
         {
@@ -25,6 +27,22 @@
         public ulong Id { get { return this.id; } }
 
         public string Name { get { return this.name; } }
+
+        public IEnumerable<ulong> FollowerIds { get { return this.followerids; } }
+
+        public IEnumerable<ulong> FollowingIds { get { return this.followingids; } }
+
+        public void AddFollower(ulong followerid)
+        {
+            if (!this.followerids.Contains(followerid))
+                this.followerids.Add(followerid);
+        }
+
+        public void Following(ulong userid)
+        {
+            if (!this.followingids.Contains(userid))
+                this.followingids.Add(userid);
+        }
     }
 }
 

@@ -31,5 +31,14 @@
 
             return ++counter;
         }
+
+        public void AddFollower(ulong userid, ulong followerid)
+        {
+            User user = this.repository.Users.Where(u => u.Id == userid).Single();
+            User follower = this.repository.Users.Where(u => u.Id == followerid).Single();
+
+            user.AddFollower(followerid);
+            follower.Following(userid);
+        }
     }
 }

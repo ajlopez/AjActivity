@@ -55,5 +55,23 @@ namespace AjActivity.Tests.Services
             Assert.AreEqual(id, user.Id);
             Assert.AreEqual("foo", user.Name);
         }
+
+        [TestMethod]
+        public void AddFollower()
+        {
+            ulong userid = this.service.NewUser("foo");
+            ulong followerid = this.service.NewUser("bar");
+
+            this.service.AddFollower(userid, followerid);
+
+            User user = this.repository.Users.Where(u => u.Id == userid).SingleOrDefault();
+            User follower = this.repository.Users.Where(u => u.Id == followerid).SingleOrDefault();
+
+            Assert.IsNotNull(user);
+            Assert.IsNotNull(follower);
+
+            Assert.IsTrue(user.FollowerIds.Contains(followerid));
+            Assert.IsTrue(follower.FollowingIds.Contains(userid));
+        }
     }
 }
