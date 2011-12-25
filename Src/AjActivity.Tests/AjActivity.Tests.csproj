@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\SparseArrayTests.cs" />
+    <Compile Include="Collections\TreeListTests.cs" />
     <Compile Include="UserRepositoryTests.cs" />
     <Compile Include="Model\UserTests.cs" />
     <Compile Include="Model\MessageTests.cs" />

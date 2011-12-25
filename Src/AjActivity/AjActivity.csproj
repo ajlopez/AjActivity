@@ -49,6 +49,7 @@
     <Compile Include="Collections\SparseArray.cs" />
     <Compile Include="Collections\SparseArrayLeafNode.cs" />
     <Compile Include="Collections\SparseArrayNode.cs" />
+    <Compile Include="Collections\TreeList.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="Model\User.cs" />
