@@ -44,7 +44,7 @@
             if (this.from <= position && position <= this.to)
             {
                 ushort nslot = this.GetSlotPosition(position);
-                if (this.subnodes[nslot] == null)
+                if (this.subnodes[nslot] == null) 
                     if (this.level == 1)
                         this.subnodes[nslot] = new SparseArrayLeafNode<T>(position, this.size);
                     else
@@ -54,7 +54,9 @@
                 return this;
             }
 
-            ISparseArrayNode<T> parent = new SparseArrayNode<T>(position, (ushort) (this.level + 1), this.size);
+            SparseArrayNode<T> parent = new SparseArrayNode<T>(this.from, (ushort) (this.level + 1), this.size);
+
+            parent.SetSlot(this.from, this);
 
             return parent.SetValue(position, value);
         }

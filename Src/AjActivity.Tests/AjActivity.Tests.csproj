@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\SparseArrayTests.cs" />
     <Compile Include="UserRepositoryTests.cs" />
     <Compile Include="Model\UserTests.cs" />
     <Compile Include="Model\MessageTests.cs" />
@@ -50,9 +51,6 @@
       <Project>{994AD9C3-0A2A-4500-8B2C-77F756FB98A2}</Project>
       <Name>AjActivity</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Collections\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
