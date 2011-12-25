@@ -25,7 +25,7 @@
             this.level = level;
             this.size = size;
 
-            this.modulo = 1;
+            this.modulo = size;
 
             for (ushort k = 0; k < level; k++)
                 this.modulo = this.modulo * size;
@@ -43,7 +43,7 @@
         {
             if (this.from <= position && position <= this.to)
             {
-                ushort nslot = (ushort) ((position - this.from) / (this.modulo / this.size));
+                ushort nslot = this.GetSlotPosition(position);
                 if (this.subnodes[nslot] == null)
                     if (this.level == 1)
                         this.subnodes[nslot] = new SparseArrayLeafNode<T>(position, this.size);
@@ -61,11 +61,22 @@
 
         public T GetValue(ulong position)
         {
-            ushort nslot = (ushort)((position - this.from) / (this.modulo / this.size));
+            ushort nslot = this.GetSlotPosition(position);
+
             if (this.subnodes[nslot] == null)
                 return default(T);
 
             return this.subnodes[nslot].GetValue(position);
+        }
+
+        internal void SetSlot(ulong position, ISparseArrayNode<T> subnode)
+        {
+            this.subnodes[this.GetSlotPosition(position)] = subnode;
+        }
+
+        private ushort GetSlotPosition(ulong position)
+        {
+            return (ushort)((position - this.from) / (this.modulo / this.size));
         }
     }
 }

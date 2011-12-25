@@ -31,7 +31,9 @@
                 return this;
             }
 
-            ISparseArrayNode<T> parent = new SparseArrayNode<T>(position, 1, this.size);
+            SparseArrayNode<T> parent = new SparseArrayNode<T>(position, 1, this.size);
+
+            parent.SetSlot(this.from, this);
 
             return parent.SetValue(position, value);
         }

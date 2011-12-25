@@ -21,5 +21,45 @@ namespace AjActivity.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(user, result);
         }
+
+        [TestMethod]
+        public void AddOneHundredUsers()
+        {
+            UserRepository repository = new UserRepository();
+
+            for (ushort k = 1; k <= 100; k++)
+            {
+                User user = new User(k, "user"+k);
+                repository.SetUser(user);
+            }
+
+            for (ushort k = 1; k <= 100; k++)
+            {
+                User result = repository.GetUser(k);
+                Assert.IsNotNull(result);
+                Assert.AreEqual((ulong) k, result.Id);
+                Assert.AreEqual("user" + k, result.Name);
+            }
+        }
+
+        [TestMethod]
+        public void AddOneThousandUsers()
+        {
+            UserRepository repository = new UserRepository();
+
+            for (ushort k = 1; k <= 1000; k++)
+            {
+                User user = new User(k, "user" + k);
+                repository.SetUser(user);
+            }
+
+            for (ushort k = 1; k <= 1000; k++)
+            {
+                User result = repository.GetUser(k);
+                Assert.IsNotNull(result);
+                Assert.AreEqual((ulong)k, result.Id);
+                Assert.AreEqual("user" + k, result.Name);
+            }
+        }
     }
 }
