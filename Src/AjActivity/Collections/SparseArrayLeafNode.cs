@@ -25,7 +25,7 @@
 
         public ISparseArrayNode<T> SetValue(ulong position, T value)
         {
-            if (this.from <= position && position < this.from + this.size)
+            if (this.from <= position && position <= this.from + (ushort) (this.size-1))
             {
                 this.values[position - this.from] = value;
                 return this;
