@@ -8,10 +8,10 @@
 
     public class UserService
     {
-        private Repository repository;
+        private UserRepository repository;
         private ulong counter;
 
-        public UserService(Repository repository)
+        public UserService(UserRepository repository)
         {
             this.repository = repository;
         }
@@ -20,7 +20,7 @@
         {
             ulong id = this.NextId();
             User user = new User(id, name);
-            this.repository.AddUser(user);
+            this.repository.SetUser(user);
             return user;
         }
 
@@ -31,8 +31,8 @@
 
         public void AddFollower(ulong userid, ulong followerid)
         {
-            User user = this.repository.GetUserById(userid);
-            User follower = this.repository.GetUserById(followerid);
+            User user = this.repository.GetUser(userid);
+            User follower = this.repository.GetUser(followerid);
 
             user.AddFollower(followerid);
             follower.Following(userid);

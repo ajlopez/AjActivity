@@ -11,7 +11,8 @@ namespace AjActivity.Tests.Services
     [TestClass]
     public class ActivityServiceTests
     {
-        private Repository repository;
+        private UserRepository userrepository;
+        private MessageRepository msgrepository;
         private ActivityService service;
         private User user;
         private IList<User> followers = new List<User>();
@@ -19,10 +20,11 @@ namespace AjActivity.Tests.Services
         [TestInitialize]
         public void Setup()
         {
-            this.repository = new Repository();
-            this.service = new ActivityService(this.repository);
+            this.userrepository = new UserRepository();
+            this.msgrepository = new MessageRepository();
+            this.service = new ActivityService(this.msgrepository, this.userrepository);
 
-            UserService uservice = new UserService(this.repository);
+            UserService uservice = new UserService(this.userrepository);
             this.user = uservice.NewUser("user");
 
             for (int k = 1; k <= 100; k++)

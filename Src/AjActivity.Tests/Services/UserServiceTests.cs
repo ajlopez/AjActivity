@@ -11,13 +11,13 @@ namespace AjActivity.Tests.Services
     [TestClass]
     public class UserServiceTests
     {
-        private Repository repository;
+        private UserRepository repository;
         private UserService service;
 
         [TestInitialize]
         public void Setup()
         {
-            this.repository = new Repository();
+            this.repository = new UserRepository();
             this.service = new UserService(this.repository);
         }
 

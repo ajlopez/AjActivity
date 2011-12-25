@@ -8,12 +8,14 @@
 
     public class ActivityService
     {
-        private Repository repository;
+        private MessageRepository repository;
+        private UserRepository urepository;
         private ulong counter;
 
-        public ActivityService(Repository repository)
+        public ActivityService(MessageRepository repository, UserRepository urepository)
         {
             this.repository = repository;
+            this.urepository = urepository;
         }
 
         public Message NewMessage(ulong userid, string content)
@@ -23,13 +25,13 @@
             Message message = new Message(id, userid, datetime, content);
             this.repository.AddMessage(message);
 
-            User user = this.repository.GetUserById(userid);
+            User user = this.urepository.GetUser(userid);
 
             user.AddMessage(message);
 
             foreach (ulong followerid in user.FollowerIds)
             {
-                User follower = this.repository.GetUserById(followerid);
+                User follower = this.urepository.GetUser(followerid);
                 follower.AddMessage(message);
             }
 
