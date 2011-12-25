@@ -17,6 +17,13 @@
         {
         }
 
+        public TreeListLeafNode(ushort size)
+        {
+            this.count = 0;
+            this.size = size;
+            this.values = new T[size];
+        }
+
         public ushort Size { get { return this.size; } }
 
         public ushort Level { get { return 0; } }
@@ -30,17 +37,19 @@
             }
         }
 
-        public TreeListLeafNode(ushort size)
-        {
-            this.count = 0;
-            this.size = 0;
-            this.values = new T[size];
-        }
+        public bool IsFull { get { return this.size == this.count; } }
 
         public ITreeListNode<T> Add(T element)
         {
-            this.values[this.count++] = element;
-            return this;
+            if (this.count < this.size)
+            {
+                this.values[this.count++] = element;
+                return this;
+            }
+
+            TreeListNode<T> parent = new TreeListNode<T>(this);
+
+            return parent.Add(element);
         }
     }
 }

@@ -40,6 +40,8 @@ namespace AjActivity.Collections
 
         public ushort Level { get { return this.level; } }
 
+        public bool IsFull { get { return this.size == this.count; } }
+
         public IEnumerable<T> Elements
         {
             get {
@@ -51,7 +53,22 @@ namespace AjActivity.Collections
 
         public ITreeListNode<T> Add(T element)
         {
-            this.subnodes[this.count].Add(element);
+            if (this.count == 0 || this.subnodes[this.count - 1].IsFull)
+            {
+                if (this.count == this.size)
+                {
+                    TreeListNode<T> parent = new TreeListNode<T>(this);
+
+                    return parent.Add(element);
+                }
+
+                if (this.level == 1)
+                    this.subnodes[this.count++] = new TreeListLeafNode<T>(this.size);
+                else
+                    this.subnodes[this.count++] = new TreeListNode<T>(this.size, (ushort)(this.level - 1));
+            }
+
+            this.subnodes[this.count-1].Add(element);
             return this;
         }
     }

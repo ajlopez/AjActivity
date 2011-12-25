@@ -8,16 +8,16 @@
     public class SparseArray<T>
     {
         private ISparseArrayNode<T> root;
-        private ushort size;
+        private ushort nodesize;
 
         public SparseArray()
             : this(256)
         {
         }
 
-        public SparseArray(ushort size)
+        public SparseArray(ushort nodesize)
         {
-            this.size = size;
+            this.nodesize = nodesize;
         }
 
         public T this[ulong index]
@@ -33,7 +33,7 @@
             set
             {
                 if (this.root == null)
-                    this.root = new SparseArrayLeafNode<T>(index, this.size);
+                    this.root = new SparseArrayLeafNode<T>(index, this.nodesize);
 
                 this.root = this.root.SetValue(index, value);
             }

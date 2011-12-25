@@ -11,5 +11,7 @@ namespace AjActivity.Collections
         ushort Level { get; }
 
         IEnumerable<T> Elements { get; }
+
+        bool IsFull { get; }
     }
 }
