@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using AjActivity.Collections;
 
     public class User
     {
@@ -11,7 +12,7 @@
         private string name;
         private IList<ulong> followerids = new List<ulong>();
         private IList<ulong> followingids = new List<ulong>();
-        private IList<Message> messages = new List<Message>();
+        private TreeList<Message> messages = new TreeList<Message>(30);
 
         public User(ulong id, string name)
         {
