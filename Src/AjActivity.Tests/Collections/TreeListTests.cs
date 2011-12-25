@@ -17,5 +17,23 @@ namespace AjActivity.Tests.Collections
             list.Add(1);
             Assert.AreEqual(1, list.Count);
         }
+
+        [TestMethod]
+        public void AddAndEnumerateTenElements()
+        {
+            TreeList<int> list = new TreeList<int>();
+
+            for (int k = 1; k <= 100; k++)
+                list.Add(k);
+
+            Assert.AreEqual(100, list.Count);
+
+            int j = 0;
+
+            foreach (var n in list)
+                Assert.AreEqual(++j, n);
+
+            Assert.AreEqual(100, j);
+        }
     }
 }
