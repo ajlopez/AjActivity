@@ -8,18 +8,18 @@
 
     public class Repository
     {
-        private IList<Message> messages;
+        private MessageRepository messages;
         private UserRepository users;
 
         public Repository()
         {
-            this.messages = new List<Message>();
+            this.messages = new MessageRepository();
             this.users = new UserRepository();
         }
 
         internal void AddMessage(Message message)
         {
-            this.messages.Add(message);
+            this.messages.AddMessage(message);
         }
 
         internal void AddUser(User user)

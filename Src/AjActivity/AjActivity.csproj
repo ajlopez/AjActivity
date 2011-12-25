@@ -53,6 +53,7 @@
     <Compile Include="Collections\TreeList.cs" />
     <Compile Include="Collections\TreeListLeafNode.cs" />
     <Compile Include="Collections\TreeListNode.cs" />
+    <Compile Include="MessageRepository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="Model\User.cs" />
