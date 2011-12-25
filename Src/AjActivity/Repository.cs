@@ -9,12 +9,12 @@
     public class Repository
     {
         private IList<Message> messages;
-        private IList<User> users;
+        private UserRepository users;
 
         public Repository()
         {
             this.messages = new List<Message>();
-            this.users = new List<User>();
+            this.users = new UserRepository();
         }
 
         internal void AddMessage(Message message)
@@ -24,12 +24,12 @@
 
         internal void AddUser(User user)
         {
-            this.users.Add(user);
+            this.users.SetUser(user);
         }
 
         internal User GetUserById(ulong id)
         {
-            return this.users.Where(u => u.Id == id).SingleOrDefault();
+            return this.users.GetUser(id);
         }
     }
 }
