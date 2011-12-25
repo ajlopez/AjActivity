@@ -61,5 +61,20 @@ namespace AjActivity.Tests.Collections
             for (int k = 0; k < 1000; k++)
                 Assert.AreEqual(k, array[(ulong)(k*1000)]);
         }
+
+        [TestMethod]
+        public void SetOneMillionSparseElements()
+        {
+            SparseArray<int> array = new SparseArray<int>(10);
+
+            for (int k = 0; k < 1000000; k++)
+            {
+                array[(ulong)(k * 1000)] = k;
+                Assert.AreEqual(k, array[(ulong)(k * 1000)]);
+            }
+
+            for (int k = 0; k < 1000000; k++)
+                Assert.AreEqual(k, array[(ulong)(k * 1000)]);
+        }
     }
 }
