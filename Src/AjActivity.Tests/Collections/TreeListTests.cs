@@ -64,5 +64,23 @@ namespace AjActivity.Tests.Collections
 
             Assert.AreEqual(100, j);
         }
+
+        [TestMethod]
+        public void AddAndEnumerateOneThousandElementsWithNodeSizeTen()
+        {
+            TreeList<int> list = new TreeList<int>(10);
+
+            for (int k = 1; k <= 1000; k++)
+                list.Add(k);
+
+            Assert.AreEqual(1000, list.Count);
+
+            int j = 0;
+
+            foreach (var n in list)
+                Assert.AreEqual(++j, n);
+
+            Assert.AreEqual(1000, j);
+        }
     }
 }
